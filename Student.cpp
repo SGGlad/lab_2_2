@@ -1,5 +1,4 @@
-#include "structures.hpp"
-
+#include "Student.hpp"
 
 
 Name::Name() = default;
@@ -21,7 +20,7 @@ Name Name::operator+(const char& other) {
 	return Name{ name_ + other };
 }
 void Name::print() {
-	std::cout << name_;
+	std::cout << name_<<" ";
 }
 
 
@@ -43,10 +42,8 @@ Second_name Second_name::operator+(const std::string& other) {
 	return Second_name{ second_name_ + other };
 }
 void Second_name::print() {
-	std::cout << second_name_;
+	std::cout << second_name_<<" ";
 }
-
-
 
 
 Student::Student(Name name, Second_name second_name, std::vector<std::string>& debts) : name_(name), second_name_(second_name), debts_(debts) {}
@@ -65,6 +62,7 @@ Student& Student::operator=(const Student& other) {
 	name_ = other.name_;
 	second_name_ = other.second_name_;
 	std::copy(begin(other.debts_), end(other.debts_), begin(debts_));
+	debts_.pop_back();
 	return *this;
 }
 const Student Student::operator+(const Student& other_1) {
@@ -112,7 +110,9 @@ void Student::set_second_name(Second_name second_name) {
 }
 void Student::set_debts(std::vector<std::string> debts) {
 	std::copy(begin(debts), end(debts), begin(debts_));
+	debts_.pop_back();
 }
 Name Student::get_name() { return name_; }
 Second_name Student::get_second_name() { return second_name_; }
 std::vector<std::string> Student::get_debts() { return debts_; }
+
